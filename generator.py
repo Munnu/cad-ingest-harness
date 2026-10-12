@@ -2,18 +2,22 @@ import json
 import logging
 import tempfile
 import os
+from datetime import datetime
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
 def generate_vendor_export(cleaned_components: list, output_filepath: str, board_name: str = "Default_Board"):
     """Takes Quilter's clean internal component format and generates a valid vendor export file."""
     
+    # Generate the current date dynamically
+    current_date = datetime.now().strftime("%Y-%m-%d")
+    
     # 1. Rebuild the vendor's required wrapper structure (Headers, Metadata)
     vendor_payload = {
         "header": {
             "exporter": "Quilter_AI_FileIO_v1.0",
             "schema_version": "2.0",
-            "date_exported": "2026-10-11"
+            "date_exported": current_date
         },
         "board_metadata": {
             "board_name": board_name,
