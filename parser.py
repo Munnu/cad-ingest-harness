@@ -1,9 +1,11 @@
-from pydantic import BaseModel, Field
 import json
 import logging
 
+from pydantic import BaseModel
+
 # Set up logging to track what our parser is doing
 logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+logger = logging.getLogger(__name__)
 
 # Define a Pydantic model for the component data, what Quilter wants our data to look like
 class StandardComponent(BaseModel):
@@ -17,7 +19,7 @@ def parse_vendor_file(filepath: str):
         with open(filepath, 'r') as file:
             raw_data = json.load(file)
     except FileNotFoundError:
-        logging.error(f"File not found: {filepath}")
+        logger.error(f"File not found: {filepath}")
         return []
 
     # Navigate past the header to get straight to the components list
@@ -40,7 +42,7 @@ def parse_vendor_file(filepath: str):
             y = coords.get('y', 0.0)  # Default to 0.0 if missing
             
             if "x" not in coords or "y" not in coords:
-                logging.warning(f"Missing coordinate(s) for component {component_id} at index {index}. Coordinates are now changed to ({x}, {y}).")
+                logger.warning(f"Missing coordinate(s) for component {component_id} at index {index}. Coordinates are now changed to ({x}, {y}).")
                 
             # Build a normalized dictionary matching our Pydantic model
             normalized_dict = {
@@ -54,8 +56,9 @@ def parse_vendor_file(filepath: str):
             validated_item = StandardComponent(**normalized_dict)
             cleaned_components.append(validated_item.model_dump())
         
-        except Exception as e:
-            logging.warning(f"Error processing item at index {index}: {e}. Skipping this item.")
+        except (KeyError, TypeError, ValueError) as e:
+            # Catching specific expected parsing errors rather than a blind blanket Exception
+            logger.warning(f"Error processing item at index {index}: {e}. Skipping this item.")
     
     return cleaned_components
 
