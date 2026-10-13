@@ -1,0 +1,49 @@
+{
+  "header": {
+    "exporter": "Altium_v4",
+    "schema_version": "2.0",
+    "date_exported": "2026-10-13"
+  },
+  "board_metadata": {
+    "board_name": "Board_Rev_30",
+    "units": "mm"
+  },
+  "components": [
+    {
+      "part_number": "J1",
+      "category": "Connector",
+      "value": "Terminal_Block",
+      "coordinates": {
+        "x": 5.13,
+        "y": 8.34
+      }
+    },
+    {
+      "part_number": "R2",
+      "part_type": "Resistor",
+      "value": "10k",
+      "coordinates": {
+        "x": 93.9,
+        "y": 76.93
+      }
+    },
+    {
+      "part_number": "C3",
+      "type": "Capacitor",
+      "value": "22pF",
+      "coordinates": {
+        "x": 25.3,
+        "y": 83.51
+      }
+    },
+    {
+      "comp_id": "C4",
+      "category": "Capacitor",
+      "value": "0.1uF",
+      "coordinates": {
+        "x": 9.34,
+        "y": 20.12
+      }
+    }
+  ]
+}

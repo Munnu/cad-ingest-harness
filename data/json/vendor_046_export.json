@@ -1,0 +1,71 @@
+{
+  "header": {
+    "exporter": "CustomCAD_v1",
+    "schema_version": "2.0",
+    "date_exported": "2026-10-13"
+  },
+  "board_metadata": {
+    "board_name": "Board_Rev_46",
+    "units": "mm"
+  },
+  "components": [
+    {
+      "part_number": "R1",
+      "category": "Resistor",
+      "value": "4.7k"
+    },
+    {
+      "part_number": "U2",
+      "part_type": "Microcontroller",
+      "value": "STM32",
+      "coordinates": {
+        "x": 99.69
+      }
+    },
+    {
+      "comp_id": "R3",
+      "type": "Resistor",
+      "value": "100ohm",
+      "coordinates": {
+        "x": 65.8,
+        "y": 69.63
+      }
+    },
+    {
+      "part_number": "J4",
+      "type": "Connector",
+      "value": "Terminal_Block",
+      "coordinates": {
+        "x": 39.25,
+        "y": 26.86
+      }
+    },
+    {
+      "id": "R5",
+      "category": "Resistor",
+      "value": "10k",
+      "coordinates": {
+        "x": 72.85,
+        "y": 61.27
+      }
+    },
+    {
+      "part_number": "R6",
+      "category": "Resistor",
+      "value": "330ohm",
+      "coordinates": {
+        "x": 74.05,
+        "y": 75.55
+      }
+    },
+    {
+      "part_number": "C7",
+      "category": "Capacitor",
+      "value": "100uF",
+      "coordinates": {
+        "x": 72.59,
+        "y": 74.84
+      }
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "header": {
+    "exporter": "OrCAD_Legacy",
+    "schema_version": "2.0",
+    "date_exported": "2026-10-13"
+  },
+  "board_metadata": {
+    "board_name": "Board_Rev_37",
+    "units": "mm"
+  },
+  "components": [
+    {
+      "comp_id": "R1",
+      "category": "Resistor",
+      "value": "100ohm",
+      "coordinates": {
+        "x": 24.84,
+        "y": 2.14
+      }
+    },
+    {
+      "part_number": "C2",
+      "category": "Capacitor",
+      "value": "10uF",
+      "coordinates": {
+        "x": 13.76,
+        "y": 45.91
+      }
+    },
+    {
+      "part_number": "J3",
+      "type": "Connector",
+      "value": "USB_C",
+      "coordinates": {
+        "x": 31.29,
+        "y": 46.24
+      }
+    },
+    {
+      "id": "U4",
+      "category": "Microcontroller",
+      "value": "ESP32",
+      "coordinates": {
+        "x": 17.39,
+        "y": 62.0
+      }
+    },
+    {
+      "part_number": "J5",
+      "type": "Connector",
+      "value": "USB_C",
+      "coordinates": {
+        "x": 6.4,
+        "y": 5.52
+      }
+    },
+    {
+      "comp_id": "J6",
+      "part_type": "Connector",
+      "value": "Terminal_Block",
+      "coordinates": {
+        "x": 37.88,
+        "y": 28.1
+      }
+    },
+    {
+      "id": "C7",
+      "category": "Capacitor",
+      "value": "10uF",
+      "coordinates": {
+        "x": 37.55,
+        "y": 22.93
+      }
+    }
+  ]
+}

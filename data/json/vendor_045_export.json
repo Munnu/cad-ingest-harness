@@ -1,0 +1,62 @@
+{
+  "header": {
+    "exporter": "Altium_v4",
+    "schema_version": "2.0",
+    "date_exported": "2026-10-13"
+  },
+  "board_metadata": {
+    "board_name": "Board_Rev_45",
+    "units": "mm"
+  },
+  "components": [
+    {
+      "comp_id": "R1",
+      "category": "Resistor",
+      "value": "330ohm"
+    },
+    {
+      "comp_id": "U2",
+      "part_type": "Microcontroller",
+      "value": "ESP32",
+      "coordinates": {
+        "x": 72.18
+      }
+    },
+    {
+      "id": "R3",
+      "part_type": "Resistor",
+      "value": "330ohm",
+      "coordinates": {
+        "x": 34.23,
+        "y": 51.13
+      }
+    },
+    {
+      "comp_id": "R4",
+      "part_type": "Resistor",
+      "value": "4.7k",
+      "coordinates": {
+        "x": 72.07,
+        "y": 18.83
+      }
+    },
+    {
+      "id": "U5",
+      "part_type": "Microcontroller",
+      "value": "ATmega328P",
+      "coordinates": {
+        "x": 97.5,
+        "y": 98.25
+      }
+    },
+    {
+      "comp_id": "J6",
+      "category": "Connector",
+      "value": "Terminal_Block",
+      "coordinates": {
+        "x": 43.12,
+        "y": 5.03
+      }
+    }
+  ]
+}
