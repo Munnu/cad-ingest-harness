@@ -1,0 +1,58 @@
+{
+  "header": {
+    "exporter": "CustomCAD_v1",
+    "schema_version": "2.0",
+    "date_exported": "2026-10-13"
+  },
+  "board_metadata": {
+    "board_name": "Board_Rev_47",
+    "units": "mm"
+  },
+  "components": [
+    {
+      "id": "U1",
+      "type": "Microcontroller",
+      "value": "STM32",
+      "coordinates": {
+        "x": 31.79,
+        "y": 1.07
+      }
+    },
+    {
+      "id": "R2",
+      "type": "Resistor",
+      "value": "330ohm",
+      "coordinates": {
+        "x": 44.02,
+        "y": 47.29
+      }
+    },
+    {
+      "id": "J3",
+      "part_type": "Connector",
+      "value": "Terminal_Block",
+      "coordinates": {
+        "x": 81.06,
+        "y": 10.69
+      }
+    },
+    {
+      "comp_id": "C4",
+      "category": "Capacitor",
+      "value": "22pF",
+      "coordinates": {
+        "x": 74.17,
+        "y": 36.72
+      }
+    },
+    {
+      "comp_id": "C5",
+      "part_type": "Capacitor",
+      "value": "0.1uF",
+      "coordinates": {
+        "x": 37.72,
+        "y": 34.31
+      }
+    }
+  ]
+}

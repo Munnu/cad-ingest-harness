@@ -1,0 +1,58 @@
+{
+  "header": {
+    "exporter": "KiCad_Export",
+    "schema_version": "2.0",
+    "date_exported": "2026-10-13"
+  },
+  "board_metadata": {
+    "board_name": "Board_Rev_29",
+    "units": "mm"
+  },
+  "components": [
+    {
+      "id": "U1",
+      "type": "Microcontroller",
+      "value": "ESP32",
+      "coordinates": {
+        "x": 62.78,
+        "y": 65.75
+      }
+    },
+    {
+      "part_number": "U2",
+      "part_type": "Microcontroller",
+      "value": "ESP32",
+      "coordinates": {
+        "x": 13.7,
+        "y": 22.69
+      }
+    },
+    {
+      "part_number": "J3",
+      "type": "Connector",
+      "value": "USB_C",
+      "coordinates": {
+        "x": 0.76,
+        "y": 35.85
+      }
+    },
+    {
+      "part_number": "J4",
+      "part_type": "Connector",
+      "value": "Header_1x4",
+      "coordinates": {
+        "x": 0.91,
+        "y": 41.95
+      }
+    },
+    {
+      "part_number": "C5",
+      "category": "Capacitor",
+      "value": "10uF",
+      "coordinates": {
+        "x": 82.35,
+        "y": 96.65
+      }
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "header": {
+    "exporter": "Altium_v4",
+    "schema_version": "2.0",
+    "date_exported": "2026-10-13"
+  },
+  "board_metadata": {
+    "board_name": "Board_Rev_18",
+    "units": "mm"
+  },
+  "components": [
+    {
+      "comp_id": "R1",
+      "part_type": "Resistor",
+      "value": "330ohm",
+      "coordinates": {
+        "x": 49.47,
+        "y": 82.19
+      }
+    },
+    {
+      "id": "J2",
+      "type": "Connector",
+      "value": "Terminal_Block",
+      "coordinates": {
+        "x": 25.91,
+        "y": 56.19
+      }
+    },
+    {
+      "id": "U3",
+      "type": "Microcontroller",
+      "value": "STM32",
+      "coordinates": {
+        "x": 11.32,
+        "y": 7.08
+      }
+    },
+    {
+      "part_number": "C4",
+      "part_type": "Capacitor",
+      "value": "10uF",
+      "coordinates": {
+        "x": 78.27,
+        "y": 27.91
+      }
+    }
+  ]
+}

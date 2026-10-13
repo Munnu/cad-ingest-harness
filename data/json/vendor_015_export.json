@@ -1,0 +1,35 @@
+{
+  "header": {
+    "exporter": "KiCad_Export",
+    "schema_version": "2.0",
+    "date_exported": "2026-10-13"
+  },
+  "board_metadata": {
+    "board_name": "Board_Rev_15",
+    "units": "mm"
+  },
+  "components": [
+    {
+      "part_number": "C1",
+      "type": "Capacitor",
+      "value": "100uF"
+    },
+    {
+      "comp_id": "C2",
+      "category": "Capacitor",
+      "value": "10uF",
+      "coordinates": {
+        "x": 80.81
+      }
+    },
+    {
+      "part_number": "R3",
+      "type": "Resistor",
+      "value": "330ohm",
+      "coordinates": {
+        "x": 26.71,
+        "y": 84.17
+      }
+    }
+  ]
+}

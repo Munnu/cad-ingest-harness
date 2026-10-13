@@ -1,0 +1,76 @@
+{
+  "header": {
+    "exporter": "CustomCAD_v1",
+    "schema_version": "2.0",
+    "date_exported": "2026-10-13"
+  },
+  "board_metadata": {
+    "board_name": "Board_Rev_8",
+    "units": "mm"
+  },
+  "components": [
+    {
+      "part_number": "R1",
+      "category": "Resistor",
+      "value": "4.7k",
+      "coordinates": {
+        "x": 91.27,
+        "y": 41.5
+      }
+    },
+    {
+      "id": "C2",
+      "type": "Capacitor",
+      "value": "10uF",
+      "coordinates": {
+        "x": 64.01,
+        "y": 13.41
+      }
+    },
+    {
+      "comp_id": "C3",
+      "type": "Capacitor",
+      "value": "10uF",
+      "coordinates": {
+        "x": 72.94,
+        "y": 2.53
+      }
+    },
+    {
+      "part_number": "R4",
+      "type": "Resistor",
+      "value": "100ohm",
+      "coordinates": {
+        "x": 66.3,
+        "y": 2.84
+      }
+    },
+    {
+      "part_number": "J5",
+      "type": "Connector",
+      "value": "Terminal_Block",
+      "coordinates": {
+        "x": 40.4,
+        "y": 11.79
+      }
+    },
+    {
+      "part_number": "R6",
+      "type": "Resistor",
+      "value": "4.7k",
+      "coordinates": {
+        "x": 15.48,
+        "y": 52.86
+      }
+    },
+    {
+      "id": "U7",
+      "part_type": "Microcontroller",
+      "value": "ATmega328P",
+      "coordinates": {
+        "x": 54.24,
+        "y": 49.25
+      }
+    }
+  ]
+}

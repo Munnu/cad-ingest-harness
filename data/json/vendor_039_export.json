@@ -1,0 +1,71 @@
+{
+  "header": {
+    "exporter": "CustomCAD_v1",
+    "schema_version": "2.0",
+    "date_exported": "2026-10-13"
+  },
+  "board_metadata": {
+    "board_name": "Board_Rev_39",
+    "units": "mm"
+  },
+  "components": [
+    {
+      "part_number": "U1",
+      "category": "Microcontroller",
+      "value": "ATmega328P"
+    },
+    {
+      "comp_id": "J2",
+      "part_type": "Connector",
+      "value": "Terminal_Block",
+      "coordinates": {
+        "x": 87.42
+      }
+    },
+    {
+      "id": "J3",
+      "category": "Connector",
+      "value": "USB_C",
+      "coordinates": {
+        "x": 25.31,
+        "y": 93.04
+      }
+    },
+    {
+      "comp_id": "C4",
+      "category": "Capacitor",
+      "value": "100uF",
+      "coordinates": {
+        "x": 83.58,
+        "y": 39.85
+      }
+    },
+    {
+      "part_number": "J5",
+      "category": "Connector",
+      "value": "Header_1x4",
+      "coordinates": {
+        "x": 48.71,
+        "y": 77.61
+      }
+    },
+    {
+      "id": "R6",
+      "type": "Resistor",
+      "value": "4.7k",
+      "coordinates": {
+        "x": 30.99,
+        "y": 25.8
+      }
+    },
+    {
+      "comp_id": "J7",
+      "category": "Connector",
+      "value": "Header_1x4",
+      "coordinates": {
+        "x": 27.25,
+        "y": 45.44
+      }
+    }
+  ]
+}

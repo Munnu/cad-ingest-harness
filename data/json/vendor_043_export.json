@@ -1,0 +1,76 @@
+{
+  "header": {
+    "exporter": "Altium_v4",
+    "schema_version": "2.0",
+    "date_exported": "2026-10-13"
+  },
+  "board_metadata": {
+    "board_name": "Board_Rev_43",
+    "units": "mm"
+  },
+  "components": [
+    {
+      "id": "U1",
+      "type": "Microcontroller",
+      "value": "STM32",
+      "coordinates": {
+        "x": 71.2,
+        "y": 83.64
+      }
+    },
+    {
+      "id": "R2",
+      "type": "Resistor",
+      "value": "4.7k",
+      "coordinates": {
+        "x": 29.85,
+        "y": 11.26
+      }
+    },
+    {
+      "comp_id": "C3",
+      "type": "Capacitor",
+      "value": "22pF",
+      "coordinates": {
+        "x": 99.69,
+        "y": 43.57
+      }
+    },
+    {
+      "part_number": "J4",
+      "category": "Connector",
+      "value": "Terminal_Block",
+      "coordinates": {
+        "x": 85.01,
+        "y": 74.79
+      }
+    },
+    {
+      "comp_id": "J5",
+      "type": "Connector",
+      "value": "USB_C",
+      "coordinates": {
+        "x": 58.72,
+        "y": 45.91
+      }
+    },
+    {
+      "part_number": "U6",
+      "part_type": "Microcontroller",
+      "value": "STM32",
+      "coordinates": {
+        "x": 7.06,
+        "y": 29.41
+      }
+    },
+    {
+      "comp_id": "J7",
+      "part_type": "Connector",
+      "value": "USB_C",
+      "coordinates": {
+        "x": 95.71,
+        "y": 73.91
+      }
+    }
+  ]
+}
