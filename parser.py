@@ -15,15 +15,22 @@ class StandardComponent(BaseModel):
     y_position: float
     
 def parse_vendor_file(filepath: str):
+    """
+    Parses a vendor export JSON file strictly. Raises ValueError or 
+    ValueError if any component data is missing or malformed.
+    """
     try:
         with open(filepath, 'r') as file:
             raw_data = json.load(file)
     except FileNotFoundError:
         logger.error(f"File not found: {filepath}")
-        return []
+        raise
 
     # Navigate past the header to get straight to the components list
     raw_components = raw_data.get('components', [])
+    if not raw_components:
+        raise ValueError("File contains no components list.")
+    
     cleaned_components = []
     
     for index, item in enumerate(raw_components):
@@ -38,11 +45,11 @@ def parse_vendor_file(filepath: str):
             
             # Handle nested coordinates defensively with fallback defaults
             coords = item.get('coordinates', {})
-            x = coords.get('x', 0.0)  # Default to 0.0 if missing
-            y = coords.get('y', 0.0)  # Default to 0.0 if missing
-            
             if "x" not in coords or "y" not in coords:
-                logger.warning(f"Missing coordinate(s) for component {component_id} at index {index}. Coordinates are now changed to ({x}, {y}).")
+                raise ValueError(f"Missing coordinate(s) for component {component_id} at index {index}")
+            
+            x = coords.get('x')
+            y = coords.get('y')
                 
             # Build a normalized dictionary matching our Pydantic model
             normalized_dict = {
@@ -57,8 +64,7 @@ def parse_vendor_file(filepath: str):
             cleaned_components.append(validated_item.model_dump())
         
         except (KeyError, TypeError, ValueError) as e:
-            # Catching specific expected parsing errors rather than a blind blanket Exception
-            logger.warning(f"Error processing item at index {index}: {e}. Skipping this item.")
+            logger.error(f"Error processing item at index {index}: {e}. Skipping this item.")
     
     return cleaned_components
 
