@@ -1,7 +1,9 @@
-import unittest
-from parser import parse_vendor_file
 import json
 import os
+import unittest
+
+from parser import parse_vendor_file
+
 
 class TestVendorParser(unittest.TestCase):
     
