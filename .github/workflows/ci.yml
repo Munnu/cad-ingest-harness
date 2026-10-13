@@ -1,6 +1,5 @@
 name: Python CI
 
-# Trigger this workflow on every push or pull request to your CI branch or main
 on:
   push:
     branches: [ "main", "master", "develop", "chore/ci-and-lint" ]
@@ -9,15 +8,15 @@ on:
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
-    # 1. Pull down your repository code
-    - uses: actions/checkout@v4
+    # 1. Pull down your repository code using v7 (Node 24 native)
+    - uses: actions/checkout@v7
 
-    # 2. Set up Python 3.10 to match your local environment
+    # 2. Set up Python 3.10 using v7
     - name: Set up Python 3.10
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v7
       with:
         python-version: "3.10"
 
