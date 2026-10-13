@@ -1,0 +1,40 @@
+{
+  "header": {
+    "exporter": "KiCad_Export",
+    "schema_version": "2.0",
+    "date_exported": "2026-10-13"
+  },
+  "board_metadata": {
+    "board_name": "Board_Rev_5",
+    "units": "mm"
+  },
+  "components": [
+    {
+      "comp_id": "C1",
+      "type": "Capacitor",
+      "value": "0.1uF",
+      "coordinates": {
+        "x": 8.64,
+        "y": 43.59
+      }
+    },
+    {
+      "comp_id": "U2",
+      "part_type": "Microcontroller",
+      "value": "STM32",
+      "coordinates": {
+        "x": 30.18,
+        "y": 81.05
+      }
+    },
+    {
+      "comp_id": "J3",
+      "type": "Connector",
+      "value": "Header_1x4",
+      "coordinates": {
+        "x": 97.78,
+        "y": 4.81
+      }
+    }
+  ]
+}

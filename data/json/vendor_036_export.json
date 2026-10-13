@@ -1,0 +1,58 @@
+{
+  "header": {
+    "exporter": "CustomCAD_v1",
+    "schema_version": "2.0",
+    "date_exported": "2026-10-13"
+  },
+  "board_metadata": {
+    "board_name": "Board_Rev_36",
+    "units": "mm"
+  },
+  "components": [
+    {
+      "id": "C1",
+      "category": "Capacitor",
+      "value": "22pF",
+      "coordinates": {
+        "x": 99.29,
+        "y": 68.66
+      }
+    },
+    {
+      "part_number": "C2",
+      "type": "Capacitor",
+      "value": "10uF",
+      "coordinates": {
+        "x": 19.38,
+        "y": 28.1
+      }
+    },
+    {
+      "comp_id": "U3",
+      "category": "Microcontroller",
+      "value": "ESP32",
+      "coordinates": {
+        "x": 47.26,
+        "y": 48.37
+      }
+    },
+    {
+      "id": "J4",
+      "part_type": "Connector",
+      "value": "Terminal_Block",
+      "coordinates": {
+        "x": 15.15,
+        "y": 54.27
+      }
+    },
+    {
+      "comp_id": "R5",
+      "category": "Resistor",
+      "value": "10k",
+      "coordinates": {
+        "x": 97.87,
+        "y": 53.22
+      }
+    }
+  ]
+}

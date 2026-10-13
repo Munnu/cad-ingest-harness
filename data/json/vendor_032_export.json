@@ -1,0 +1,67 @@
+{
+  "header": {
+    "exporter": "CustomCAD_v1",
+    "schema_version": "2.0",
+    "date_exported": "2026-10-13"
+  },
+  "board_metadata": {
+    "board_name": "Board_Rev_32",
+    "units": "mm"
+  },
+  "components": [
+    {
+      "part_number": "R1",
+      "category": "Resistor",
+      "value": "100ohm",
+      "coordinates": {
+        "x": 38.18,
+        "y": 96.77
+      }
+    },
+    {
+      "part_number": "R2",
+      "category": "Resistor",
+      "value": "330ohm",
+      "coordinates": {
+        "x": 92.02,
+        "y": 42.35
+      }
+    },
+    {
+      "part_number": "R3",
+      "part_type": "Resistor",
+      "value": "330ohm",
+      "coordinates": {
+        "x": 1.43,
+        "y": 77.8
+      }
+    },
+    {
+      "id": "R4",
+      "category": "Resistor",
+      "value": "330ohm",
+      "coordinates": {
+        "x": 19.76,
+        "y": 51.41
+      }
+    },
+    {
+      "id": "R5",
+      "type": "Resistor",
+      "value": "10k",
+      "coordinates": {
+        "x": 11.87,
+        "y": 67.29
+      }
+    },
+    {
+      "part_number": "U6",
+      "category": "Microcontroller",
+      "value": "STM32",
+      "coordinates": {
+        "x": 87.52,
+        "y": 43.25
+      }
+    }
+  ]
+}

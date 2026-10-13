@@ -1,0 +1,40 @@
+{
+  "header": {
+    "exporter": "Altium_v4",
+    "schema_version": "2.0",
+    "date_exported": "2026-10-13"
+  },
+  "board_metadata": {
+    "board_name": "Board_Rev_33",
+    "units": "mm"
+  },
+  "components": [
+    {
+      "comp_id": "J1",
+      "part_type": "Connector",
+      "value": "Terminal_Block",
+      "coordinates": {
+        "x": 83.85,
+        "y": 64.67
+      }
+    },
+    {
+      "id": "U2",
+      "part_type": "Microcontroller",
+      "value": "STM32",
+      "coordinates": {
+        "x": 15.32,
+        "y": 67.49
+      }
+    },
+    {
+      "id": "C3",
+      "type": "Capacitor",
+      "value": "100uF",
+      "coordinates": {
+        "x": 96.91,
+        "y": 78.84
+      }
+    }
+  ]
+}

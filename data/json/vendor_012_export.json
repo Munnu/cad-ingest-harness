@@ -1,0 +1,35 @@
+{
+  "header": {
+    "exporter": "Altium_v4",
+    "schema_version": "2.0",
+    "date_exported": "2026-10-13"
+  },
+  "board_metadata": {
+    "board_name": "Board_Rev_12",
+    "units": "mm"
+  },
+  "components": [
+    {
+      "id": "U1",
+      "category": "Microcontroller",
+      "value": "ATmega328P"
+    },
+    {
+      "id": "C2",
+      "part_type": "Capacitor",
+      "value": "10uF",
+      "coordinates": {
+        "x": 4.96
+      }
+    },
+    {
+      "id": "C3",
+      "part_type": "Capacitor",
+      "value": "10uF",
+      "coordinates": {
+        "x": 34.75,
+        "y": 11.45
+      }
+    }
+  ]
+}
