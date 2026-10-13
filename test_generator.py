@@ -2,9 +2,10 @@ import json
 import os
 import tempfile
 import unittest
-
 from datetime import datetime
+
 from generator import generate_vendor_export
+
 
 class TestGenerator(unittest.TestCase):
     def setUp(self):
@@ -13,11 +14,11 @@ class TestGenerator(unittest.TestCase):
             {"component_id": "R1", "component_type": "Resistor", "x_position": 12.5, "y_position": 45.2},
             {"component_id": "C1", "component_type": "Capacitor", "x_position": 33.1, "y_position": 0.0}
         ]
-
+        
         # Create a temporary file path to write output; tests will remove the file in tearDown
-        tmp = tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.json')
-        self.temp_filepath = tmp.name
-        tmp.close()
+        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.json') as tmp:
+            self.temp_filepath = tmp.name
+            tmp.close()
 
     def tearDown(self):
         # Ensure no permanent files remain

@@ -1,10 +1,12 @@
 import json
 import logging
-import tempfile
 import os
+import tempfile
 from datetime import datetime
 
-logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+# Set up logging to track what our generator is doing
+logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+logger = logging.getLogger(__name__)
 
 def generate_vendor_export(cleaned_components: list, output_filepath: str, board_name: str = "Default_Board"):
     """Takes Quilter's clean internal component format and generates a valid vendor export file."""
@@ -42,9 +44,9 @@ def generate_vendor_export(cleaned_components: list, output_filepath: str, board
     try:
         with open(output_filepath, 'w') as file:
             json.dump(vendor_payload, file, indent=4)
-        logging.info(f"Successfully generated vendor export at: {output_filepath}")
-    except Exception as e:
-        logging.error(f"Failed to generate export file: {e}")
+        logger.info(f"Successfully generated vendor export at: {output_filepath}")
+    except (OSError, TypeError) as e:
+        logger.error(f"Failed to generate export file: {e}")
 
 
 if __name__ == "__main__":
@@ -65,21 +67,21 @@ if __name__ == "__main__":
             temp_filename = temp_file.name
         
         # log the payload to verify what will be written
-        logging.info(f"Test Payload: {sample_cleaned_data}")
+        logger.info(f"Test Payload: {sample_cleaned_data}")
         
         # Run our generator pointing to the temporary path
         generate_vendor_export(sample_cleaned_data, temp_filename, board_name="Test_Board")
 
         success = True
-        logging.info("File has been successfully generated")
+        logger.info("File has been successfully generated")
         
-    except Exception as e:
-        logging.error(f"An error occurred during the generation process: {e}")
+    except (OSError, ValueError) as e:
+        logger.error(f"An error occurred during the generation process: {e}")
     finally:
         # Guaranteed cleanup so no junk is left behind
         if temp_filename and os.path.exists(temp_filename):
             if success:
                 os.remove(temp_filename)
-                logging.info("Test file removed successfully.")
+                logger.info("Test file removed successfully.")
             else:
-                logging.error(f"Test file remains for inspection due to failure: {temp_filename}")
+                logger.error(f"Test file remains for inspection due to failure: {temp_filename}")
