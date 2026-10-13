@@ -1,0 +1,36 @@
+name: Python CI
+
+on:
+  push:
+    branches: [ "main", "master", "develop", "chore/ci-and-lint" ]
+  pull_request:
+    branches: [ "main", "master", "develop" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-24.04
+
+    steps:
+    # 1. Pull down your repository code using v7 (Node 24 native)
+    - uses: actions/checkout@v7
+
+    # 2. Set up Python 3.10 using v7
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v7
+      with:
+        python-version: "3.10"
+
+    # 3. Install dependencies (Pydantic, Ruff, etc.)
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pydantic ruff
+
+    # 4. Run the linter to catch style/syntax issues
+    - name: Lint with Ruff
+      run: ruff check .
+
+    # 5. Run your unit test suite automatically
+    - name: Run Unit Tests
+      run: |
+        python -m unittest discover -s . -p "test_*.py"
