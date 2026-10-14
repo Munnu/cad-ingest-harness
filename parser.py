@@ -1,11 +1,15 @@
 import json
 import logging
+import sys
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ValidationError
 
 # Set up logging to track what our parser is doing
 logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 logger = logging.getLogger(__name__)
+
+class ComponentParsingError(ValueError):
+    """Raised when an individual component fails validation, invalidating the board."""
 
 # Define a Pydantic model for the component data, what Quilter wants our data to look like
 class StandardComponent(BaseModel):
@@ -48,8 +52,8 @@ def parse_vendor_file(filepath: str):
             if "x" not in coords or "y" not in coords:
                 raise ValueError(f"Missing coordinate(s) for component {component_id} at index {index}")
             
-            x = coords.get('x')
-            y = coords.get('y')
+            x = coords["x"]
+            y = coords["y"]
                 
             # Build a normalized dictionary matching our Pydantic model
             normalized_dict = {
@@ -63,15 +67,33 @@ def parse_vendor_file(filepath: str):
             validated_item = StandardComponent(**normalized_dict)
             cleaned_components.append(validated_item.model_dump())
         
+        except ValidationError as e:
+            logger.error(f"Pydantic type validation failed at index {index}: {e}. No longer parsing the board.")
+            raise ComponentParsingError(f"Data type mismatch: {e}")
+
         except (KeyError, TypeError, ValueError) as e:
-            logger.error(f"Error processing item at index {index}: {e}. Skipping this item.")
+            logger.error(f"Schema structure failed at index {index}: {e}. No longer parsing the board.")
+            raise ComponentParsingError(f"Board parsing aborted at index {index} due to: {e}")
     
     return cleaned_components
 
-if __name__ == "__main__":
-    print("--- PARSING VENDOR EXPORT FILE ---")
-    results = parse_vendor_file("vendor_export.json")
+if __name__ == '__main__':
+    target_file = "vendor_export.json"
     
-    print("\n--- SUCCESSFULLY PARSED & STANDARDIZED COMPONENTS ---")
-    for comp in results:
-        print(comp)
+    logger.info("--- STARTING VENDOR EXPORT PARSER ---")
+    try:
+        logger.info(f"Processing: {target_file}")
+        
+        results = parse_vendor_file(target_file)
+        
+        logger.info(f"Successfully parsed and standardized {len(results)} components:")
+        for comp in results:
+            print(comp)
+        
+    except (FileNotFoundError, ValueError) as e:
+        logger.error(f"Process failed due to data or file validation error: {e}")
+        sys.exit(1)
+        
+    except Exception as e:
+        logger.critical(f"An unexpected error occurred: {e}", exc_info=True)
+        sys.exit(1)
