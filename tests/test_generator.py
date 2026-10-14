@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from datetime import datetime
 
-from generator import generate_vendor_export
+from src.generator import generate_vendor_export
 
 
 class TestGenerator(unittest.TestCase):

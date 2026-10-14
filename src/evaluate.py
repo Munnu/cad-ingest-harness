@@ -14,7 +14,7 @@ import logging
 from json import JSONDecodeError
 from pathlib import Path
 
-from parser import ComponentParsingError, parse_vendor_file
+from .parser import ComponentParsingError, parse_vendor_file
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

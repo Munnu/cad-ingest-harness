@@ -6,7 +6,7 @@ import unittest
 from io import StringIO
 from unittest.mock import patch
 
-from evaluate import run_batch_evaluation
+from src.evaluate import run_batch_evaluation
 
 
 class TestEvaluator(unittest.TestCase):
