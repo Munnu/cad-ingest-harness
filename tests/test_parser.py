@@ -2,6 +2,7 @@ import json
 import os
 import unittest
 
+from parser import ComponentParsingError, parse_vendor_file
 from src.parser import ComponentParsingError, parse_vendor_file
 
 
