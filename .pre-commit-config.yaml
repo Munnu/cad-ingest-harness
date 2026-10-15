@@ -1,0 +1,28 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+  # 1. General Git/File hygiene
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-added-large-files
+
+  # 2. uv Integration (keeps lockfile and requirements in sync)
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.13.1
+    hooks:
+      - id: uv-lock
+
+  # 3. Ruff Integration (Linter + Formatter)
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.0
+    hooks:
+      # Run the linter and fix safe errors automatically
+      - id: ruff-check
+        args: [--fix]
+      # Run the formatter (always place this AFTER ruff-check)
+      - id: ruff-format
