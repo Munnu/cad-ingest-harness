@@ -90,7 +90,7 @@ def parse_vendor_file(filepath: str):
 
 
 if __name__ == "__main__":
-    target_file = "vendor_export.json"
+    target_file = "samples/vendor_export.json"
 
     logger.info("--- STARTING VENDOR EXPORT PARSER ---")
     try:
