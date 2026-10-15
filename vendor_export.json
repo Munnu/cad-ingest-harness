@@ -33,8 +33,8 @@
     },
     {
       "_comment": "Suddenly what we normally call 'comp_id' is now called 'id' and 'type' is called 'part_type'",
-      "id": "U1", 
-      "part_type": "Microcontroller", 
+      "id": "U1",
+      "part_type": "Microcontroller",
       "value": "ATmega328P",
       "coordinates": {
         "x": 50.00,
