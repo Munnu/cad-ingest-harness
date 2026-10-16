@@ -1,0 +1,24 @@
+{
+  "header": {
+    "exporter": "Altium_Pro_v4.1",
+    "schema_version": "2.0",
+    "date_exported": "2026-10-11"
+  },
+  "board_metadata": {
+    "board_name": "Power_Distribution_RevA",
+    "units": "mm"
+  },
+  "components": [
+    {
+      "comp_id": "R1",
+      "type": "Resistor",
+      "value": "10k_ohm",
+      "package": "0805",
+      "coordinates": {
+        "x": 12.50,
+        "y": 45.20
+      },
+      "pins": ["1", "2"]
+    }
+  ]
+}

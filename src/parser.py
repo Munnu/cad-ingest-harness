@@ -1,3 +1,15 @@
+"""
+Parse and validate vendor EDA export files into a standardized format.
+
+This module reads vendor-exported JSON files, validates board metadata and
+component records, and normalizes component identifiers, types, coordinates,
+and supported EDA fields into a consistent internal representation.
+
+Invalid board metadata or malformed component data causes parsing to fail
+with a BoardParsingError. Supported board coordinate units are preserved
+as declared in the input; this module does not convert coordinate units.
+"""
+
 import json
 import logging
 import sys
