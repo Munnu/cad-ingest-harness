@@ -125,7 +125,7 @@ def _build_vendor_payload(cleaned_data: dict) -> dict:
 
 
 def generate_vendor_export(
-    cleaned_components: dict,
+    cleaned_board: dict,
     output_filepath: str,
 ) -> None:
     """Generate a vendor-compatible JSON file from standardized board data.
@@ -134,7 +134,7 @@ def generate_vendor_export(
     Coordinates are preserved in the supplied board units; no conversion occurs.
     """
 
-    vendor_payload = _build_vendor_payload(cleaned_components)
+    vendor_payload = _build_vendor_payload(cleaned_board)
 
     destination = Path(output_filepath)
     temporary_path = None
