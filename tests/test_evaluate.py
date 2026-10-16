@@ -124,7 +124,11 @@ class TestEvaluator(unittest.TestCase):
         }
 
         file_3_broken_json_missing_bracket = """{
-            "components": [
+            "board_metadata":
+                "board_name": "Test_Board",
+                "units": "mm",
+            },
+            "components": [{
                 "comp_id": "R1",
                 "type": "Resistor",
                 "coordinates": {"x": 12.5, "y": 45.2}

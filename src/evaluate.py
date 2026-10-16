@@ -51,16 +51,14 @@ def run_batch_evaluation(data_dir: str = "data/json"):
         print(f"{i}")
         try:
             # pass the file through our Pydantic parser
-            parsed_components = parse_vendor_file(str(file_path))
+            parsed_boards = parse_vendor_file(str(file_path))
 
-            if parsed_components:
-                logger.info(
-                    f"[PASS] {file_path.name} -> Successfully parsed {len(parsed_components)} components successfully."
-                )
+            if parsed_boards:
+                logger.info(f"[PASS] {file_path.name} -> Successfully parsed board.")
                 passed_files += 1
             else:
                 logger.error(
-                    f"  [FAIL] {file_path.name} -> Parser returned zero components."
+                    f"  [FAIL] {file_path.name} -> Parser returned zero boards."
                 )
                 failed_files += 1
 
