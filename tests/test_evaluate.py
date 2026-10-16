@@ -23,13 +23,17 @@ class TestEvaluator(unittest.TestCase):
     def test_all_files_pass(self):
         """Generates 3 files using sample happy-path data and checks the total, pass, and fail via the stdout"""
         mock_happy_data = {
+            "board_metadata": {
+                "board_name": "Test_Board",
+                "units": "mm",
+            },
             "components": [
                 {
                     "comp_id": "R1",
                     "type": "Resistor",
                     "coordinates": {"x": 12.5, "y": 45.2},
                 }
-            ]
+            ],
         }
 
         # create file 1
@@ -88,17 +92,25 @@ class TestEvaluator(unittest.TestCase):
         happy path data, missing coordinates in the json body,
         malformed json body, and a non-json file in the source folder"""
         file_1_happy_data = {
+            "board_metadata": {
+                "board_name": "Test_Board",
+                "units": "mm",
+            },
             "components": [
                 {
                     "comp_id": "R1",
                     "type": "Resistor",
                     "coordinates": {"x": 12.5, "y": 45.2},
                 }
-            ]
+            ],
         }
 
         file_2_missing_coords_data = {
-            "components": [{"comp_id": "R1", "type": "Resistor", "coordinates": {}}]
+            "board_metadata": {
+                "board_name": "Test_Board",
+                "units": "mm",
+            },
+            "components": [{"comp_id": "R1", "type": "Resistor", "coordinates": {}}],
         }
 
         file_3_broken_json_missing_bracket = """{
