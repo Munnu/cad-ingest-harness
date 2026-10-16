@@ -14,7 +14,7 @@ import logging
 from json import JSONDecodeError
 from pathlib import Path
 
-from .parser import ComponentParsingError, parse_vendor_file
+from .parser import BoardParsingError, parse_vendor_file
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -68,7 +68,7 @@ def run_batch_evaluation(data_dir: str = "data/json"):
             FileNotFoundError,
             JSONDecodeError,
             ValueError,
-            ComponentParsingError,
+            BoardParsingError,
         ) as e:
             logger.error(
                 f"[FAIL] {file_path.name} -> Rejected due to malformed data: {e}"
