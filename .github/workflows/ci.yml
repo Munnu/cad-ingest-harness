@@ -2,9 +2,20 @@ name: Python CI
 
 on:
   push:
-    branches: [ "main", "master", "develop", "chore/ci-and-lint" ]
+    branches:
+      - 'main'
+      - 'develop'
+      - 'feature/**'
+      - 'bugfix/**'
+      - 'chore/**'
+
   pull_request:
-    branches: [ "main", "master", "develop" ]
+    branches:
+      - 'main'
+      - 'develop'
+      - 'feature/**'
+      - 'bugfix/**'
+      - 'chore/**'
 
 jobs:
   build-and-test:

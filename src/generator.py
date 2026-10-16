@@ -1,87 +1,219 @@
+"""
+Generate vendor-compatible EDA export files from standardized board data.
+
+This module validates standardized board metadata and component records,
+reconstructs the expected vendor JSON structure, preserves supported EDA
+fields, and writes the generated export to the requested output path.
+
+Invalid input raises a TypeError or ValueError, while file-system failures raise an
+OSError. Board coordinate values and their declared units are preserved;
+this module does not perform coordinate-unit conversion.
+"""
+
 import json
 import logging
+import math
 import os
 import tempfile
-from datetime import datetime
+from datetime import date
+from pathlib import Path
 
-# Set up logging to track what our generator is doing
-logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 logger = logging.getLogger(__name__)
 
-def generate_vendor_export(cleaned_components: list, output_filepath: str, board_name: str = "Default_Board"):
-    """Takes Quilter's clean internal component format and generates a valid vendor export file."""
-    
-    # Generate the current date dynamically
-    current_date = datetime.now().strftime("%Y-%m-%d")
-    
-    # 1. Rebuild the vendor's required wrapper structure (Headers, Metadata)
-    vendor_payload = {
+SUPPORTED_BOARD_UNITS = {"mm", "µm", "mil", "in"}
+
+
+def _build_vendor_payload(cleaned_data: dict) -> dict:
+    """Validate the standardized data and build the vendor export structure."""
+
+    if not isinstance(cleaned_data, dict):
+        raise TypeError("Cleaned data must be a dictionary.")
+
+    board_metadata = cleaned_data.get("board_metadata")
+    components = cleaned_data.get("components")
+
+    if not isinstance(board_metadata, dict):
+        raise TypeError("Missing or invalid board_metadata.")
+
+    board_name = board_metadata.get("board_name")
+    units = board_metadata.get("units")
+
+    if not isinstance(board_name, str) or not board_name.strip():
+        raise ValueError("board_name must be a non-empty string.")
+
+    if units not in SUPPORTED_BOARD_UNITS:
+        raise ValueError(
+            f"Unsupported board units: {units!r}. "
+            f"Supported units: {sorted(SUPPORTED_BOARD_UNITS)}"
+        )
+
+    if not isinstance(components, list) or not components:
+        raise ValueError("components must be a non-empty list.")
+
+    vendor_components = []
+    seen_ids = set()
+
+    for index, comp in enumerate(components):
+        if not isinstance(comp, dict):
+            raise TypeError(f"Component at index {index} must be a dictionary.")
+
+        component_id = comp.get("component_id")
+        component_type = comp.get("component_type")
+
+        if not isinstance(component_id, str) or not component_id.strip():
+            raise ValueError(f"Missing or invalid component_id at index {index}.")
+
+        if not isinstance(component_type, str) or not component_type.strip():
+            raise ValueError(f"Missing or invalid component_type for {component_id}.")
+
+        normalized_id = component_id.casefold()
+        if normalized_id in seen_ids:
+            raise ValueError(f"Duplicate component ID: {component_id}.")
+        seen_ids.add(normalized_id)
+
+        x = comp.get("x_position")
+        y = comp.get("y_position")
+
+        for axis, coordinate in (("x", x), ("y", y)):
+            if (
+                isinstance(coordinate, bool)
+                or not isinstance(coordinate, (int, float))
+                or not math.isfinite(coordinate)
+            ):
+                raise ValueError(
+                    f"Invalid {axis} coordinate for {component_id}: {coordinate!r}"
+                )
+
+        vendor_item = {
+            "comp_id": component_id,
+            "type": component_type,
+            "coordinates": {"x": x, "y": y},
+        }
+
+        # Preserve optional EDA fields when supplied.
+        for field in ("value", "package"):
+            field_value = comp.get(field)
+            if field_value is not None:
+                if not isinstance(field_value, str):
+                    raise ValueError(f"{field} for {component_id} must be a string.")
+                vendor_item[field] = field_value
+
+        pins = comp.get("pins")
+        if pins is not None:
+            if not isinstance(pins, list) or not all(
+                isinstance(pin, str) and pin.strip() for pin in pins
+            ):
+                raise ValueError(
+                    f"pins for {component_id} must be a list of non-empty strings."
+                )
+            vendor_item["pins"] = pins
+
+        vendor_components.append(vendor_item)
+
+    return {
         "header": {
             "exporter": "Quilter_AI_FileIO_v1.0",
             "schema_version": "2.0",
-            "date_exported": current_date
+            "date_exported": date.today().isoformat(),
         },
         "board_metadata": {
             "board_name": board_name,
-            "units": "mm"
+            "units": units,
         },
-        "components": []
+        "components": vendor_components,
     }
 
-    # 2. Map our clean internal keys back to the vendor's expected keys
-    for comp in cleaned_components:
-        vendor_item = {
-            "comp_id": comp["component_id"],
-            "type": comp["component_type"],
-            "coordinates": {
-                "x": comp["x_position"],
-                "y": comp["y_position"]
-            }
-        }
-        vendor_payload["components"].append(vendor_item)
 
-    # 3. Write the payload out to disk safely
+def generate_vendor_export(
+    cleaned_components: dict,
+    output_filepath: str,
+) -> None:
+    """Generate a vendor-compatible JSON file from standardized board data.
+
+    Raises ValueError for invalid input and OSError for file-writing failures.
+    Coordinates are preserved in the supplied board units; no conversion occurs.
+    """
+
+    vendor_payload = _build_vendor_payload(cleaned_components)
+
+    destination = Path(output_filepath)
+    temporary_path = None
+
     try:
-        with open(output_filepath, 'w') as file:
-            json.dump(vendor_payload, file, indent=4)
-        logger.info(f"Successfully generated vendor export at: {output_filepath}")
-    except (OSError, TypeError) as e:
-        logger.error(f"Failed to generate export file: {e}")
+        # Create the temporary file in the destination directory so that
+        # os.replace can atomically replace the destination.
+        with tempfile.NamedTemporaryFile(
+            mode="w",
+            encoding="utf-8",
+            dir=destination.parent,
+            prefix=f".{destination.name}.",
+            suffix=".tmp",
+            delete=False,
+        ) as temp_file:
+            temporary_path = Path(temp_file.name)
+            json.dump(
+                vendor_payload,
+                temp_file,
+                indent=4,
+                ensure_ascii=False,
+                allow_nan=False,
+            )
+            temp_file.write("\n")
+            temp_file.flush()
+            os.fsync(temp_file.fileno())
+
+        os.replace(temporary_path, destination)
+        logger.info("Successfully generated vendor export at: %s", destination)
+
+    except (OSError, TypeError, ValueError):
+        logger.exception("Failed to generate export at: %s", destination)
+        raise
+
+    finally:
+        if temporary_path is not None and temporary_path.exists():
+            temporary_path.unlink()
 
 
 if __name__ == "__main__":
-    sample_cleaned_data = [
-        {"component_id": "R1", "component_type": "Resistor", "x_position": 12.5, "y_position": 45.2},
-        {"component_id": "C1", "component_type": "Capacitor", "x_position": 33.1, "y_position": 0.0}
-    ]
+    import tempfile
 
-    print("--- RUNNING GENERATOR WITH TEMPFILE (NO JUNK FILES) ---")
-    
-    # state variables initialized right before the try block
-    temp_filename = None
-    success = False
-    
+    sample_cleaned_data = {
+        "board_metadata": {
+            "board_name": "Power_Distribution_RevA",
+            "units": "mm",
+        },
+        "components": [
+            {
+                "component_id": "R1",
+                "component_type": "Resistor",
+                "x_position": 12.5,
+                "y_position": 45.2,
+                "value": "10k_ohm",
+                "package": "0805",
+                "pins": ["1", "2"],
+            },
+            {
+                "component_id": "C1",
+                "component_type": "Capacitor",
+                "x_position": 33.1,
+                "y_position": 0.0,
+            },
+        ],
+    }
+
     try:
-        # Create a secure, temporary file that automatically cleans itself up
-        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.json') as temp_file:
-            temp_filename = temp_file.name
-        
-        # log the payload to verify what will be written
-        logger.info(f"Test Payload: {sample_cleaned_data}")
-        
-        # Run our generator pointing to the temporary path
-        generate_vendor_export(sample_cleaned_data, temp_filename, board_name="Test_Board")
+        with tempfile.TemporaryDirectory() as temp_dir:
+            output_path = Path(temp_dir) / "vendor_export.json"
 
-        success = True
-        logger.info("File has been successfully generated")
-        
-    except (OSError, ValueError) as e:
-        logger.error(f"An error occurred during the generation process: {e}")
-    finally:
-        # Guaranteed cleanup so no junk is left behind
-        if temp_filename and os.path.exists(temp_filename):
-            if success:
-                os.remove(temp_filename)
-                logger.info("Test file removed successfully.")
-            else:
-                logger.error(f"Test file remains for inspection due to failure: {temp_filename}")
+            generate_vendor_export(sample_cleaned_data, str(output_path))
+
+            # Read back the file to verify it contains valid JSON.
+            with output_path.open("r", encoding="utf-8") as file:
+                generated_data = json.load(file)
+
+            print(json.dumps(generated_data, indent=2, ensure_ascii=False))
+            print("Generator smoke test passed.")
+
+    except (OSError, ValueError) as exc:
+        logger.error("Generator smoke test failed: %s", exc)
+        raise
