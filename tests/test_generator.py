@@ -63,6 +63,20 @@ class TestGenerator(unittest.TestCase):
         self.assertIsInstance(data["board_metadata"], dict)
         self.assertIsInstance(data["components"], list)
 
+    def test_generated_header_has_expected_fields(self):
+        self._generate()
+        header = self._load_output()["header"]
+
+        # check if the header has exactly these specific keys, nothing more
+        self.assertEqual(set(header), {"exporter", "schema_version", "date_exported"})
+
+        self.assertEqual(header["exporter"], "Quilter_AI_FileIO_v1.0")
+        self.assertEqual(header["schema_version"], "2.0")
+        self.assertEqual(
+            date.fromisoformat(header["date_exported"]).isoformat(),
+            header["date_exported"],
+        )
+
     def test_header_metadata_is_correct(self):
         self._generate()
         header = self._load_output()["header"]
